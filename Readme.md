@@ -10,5 +10,7 @@ Fichiers:
 
 Models : 
 
-    Buffa : le model de base 
+    Buffa30 : le model de base avec 30 génération
+    Buffa100 : le model de base avec 100 génération
+    Buffa30gen-SelectionTournament : Modification de la selection avec tournoi (Semble moins performent et la voiture est plus lente)
     

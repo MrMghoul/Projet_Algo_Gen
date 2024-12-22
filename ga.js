@@ -8,7 +8,8 @@ function nextGeneration() {
 
     for (let i = 0; i < TOTAL; i++) {
       // Pour la mutation, on choisit un parent au hasard
-      population[i] = pickOne();
+      //population[i] = pickOne();
+      population[i] = pickOneTournament();
     }
 
     // On vide le tableau des voitures
@@ -43,6 +44,31 @@ function nextGeneration() {
     child.mutate();
     return child;
   }
+
+  const tournament_size = 10;
+
+  function pickOneTournament() {
+    let tournament = [];
+    // Sélectionner des individus au hasard pour le tournoi
+    for (let i = 0; i < tournament_size; i++) {
+      let index = floor(random(savedParticles.length));
+      tournament.push(savedParticles[index]);
+    }
+
+    // Trouver le meilleur individu du tournoi
+    let best = tournament[0];
+    for (let i = 1; i < tournament_size; i++) {
+      if (tournament[i].fitness > best.fitness) {
+        best = tournament[i];
+      }
+    }
+
+    // l'heureux élu !
+    let child = new Particle(best.brain);
+    child.mutate();
+    return child;
+  }
+
   
   // On calcule la fitness de chaque voiture 
   // tester en ajouter un fitness si la voiture est première
