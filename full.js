@@ -1,10 +1,10 @@
 
 
-const TOTAL = 100;
-const MUTATION_RATE = 0.1;
-const LIFESPAN = 25;
-const SIGHT = 50;
-const MAX_GENERATIONS = 100;
+const TOTAL = 150;
+const MUTATION_RATE = 0.08;
+const LIFESPAN = 50;
+const SIGHT = 100;
+const MAX_GENERATIONS = 200;
 
 let generationCount = 0;
 
@@ -24,7 +24,7 @@ let speedSlider;
 let inside = [];
 let outside = [];
 let checkpoints = [];
-const maxFitness = 500;
+const maxFitness = 300;
 let changeMap = false;
 
 /* construit un nouveau circuit */
@@ -411,8 +411,8 @@ class NeuralNetwork {
       this.pos = createVector(start.x, start.y);
       this.vel = createVector();
       this.acc = createVector();
-      this.maxspeed = 5;
-      this.maxforce = 0.2;
+      this.maxspeed = 6;
+      this.maxforce = 0.15;
       this.sight = SIGHT;
       this.rays = [];
       this.index = 0;

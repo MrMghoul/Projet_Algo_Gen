@@ -11,8 +11,19 @@ Fichiers :
 Models : 
 
     Buffa : le model de base 
-    
+## model-relu
     Modifier la fonction d'activation en 'relu'
     taux de mutation 0.2
     3 fois plus de neurones cachés (this.brain = new NeuralNetwork(this.rays.length, this.rays.length * 3, 2);)
     ajout bonus dans la fonction "calculate fitness"
+
+## model-relu(1)
+    TOTAL: 150,
+    MUTATION_RATE: 0.08,
+    LIFESPAN: 50,
+    SIGHT: 100,
+    MAX_GENERATIONS: 200,
+    maxFitness: 300,
+    maxspeed: 6,
+    maxforce: 0.15,
+    activation: "relu"
