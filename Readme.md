@@ -12,3 +12,7 @@ Models :
 
     Buffa : le model de base 
     
+    Modifier la fonction d'activation en 'relu'
+    taux de mutation 0.2
+    3 fois plus de neurones cachés (this.brain = new NeuralNetwork(this.rays.length, this.rays.length * 3, 2);)
+    ajout bonus dans la fonction "calculate fitness"

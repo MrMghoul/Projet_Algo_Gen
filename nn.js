@@ -102,8 +102,8 @@ class NeuralNetwork {
       const hidden = tf.layers.dense({
         units: this.hidden_nodes,
         inputShape: [this.input_nodes],
-        activation: 'sigmoid' // essayer avec la fonction relu 
-      });
+        activation: 'relu' // Changer à ReLU
+    });
       model.add(hidden);
       const output = tf.layers.dense({
         units: this.output_nodes,
@@ -116,8 +116,6 @@ class NeuralNetwork {
     async saveModel() {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
-      await this.model.save('models://best-model-Buffa100gen');
+      await this.model.save('downloads://model-relu');
     }
-
-    
   }
