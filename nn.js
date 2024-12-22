@@ -73,6 +73,40 @@ class NeuralNetwork {
         this.model.setWeights(mutatedWeights);
       });
     }
+
+    // crossover
+    crossover(partner) {
+      return tf.tidy(() => {
+        // On récupère les poids des deux parents
+        const weightsA = this.model.getWeights();
+        const weightsB = partner.model.getWeights();
+        const newWeights = [];
+  
+        // Pour chaque poids des parents on crée un nouveau tenseur
+        for (let i = 0; i < weightsA.length; i++) {
+          let tensorA = weightsA[i];
+          let tensorB = weightsB[i];
+          let shape = tensorA.shape;
+          let valuesA = tensorA.dataSync().slice();
+          let valuesB = tensorB.dataSync().slice();
+          let newValues = [];
+  
+          for (let j = 0; j < valuesA.length; j++) {
+            // Choisir aléatoirement les poids de l'un ou l'autre parent
+            newValues[j] = Math.random() > 0.5 ? valuesA[j] : valuesB[j];
+          }
+
+          // On crée un nouveau tenseur avec les valeurs choisies
+          let newTensor = tf.tensor(newValues, shape);
+        newWeights[i] = newTensor;
+      }
+
+      // On crée un nouveau réseau de neurones avec les poids choisis
+      const childModel = this.createModel();
+      childModel.setWeights(newWeights);
+      return new NeuralNetwork(childModel, this.input_nodes, this.hidden_nodes, this.output_nodes);
+      });
+    }
   
     dispose() {
       this.model.dispose();
@@ -117,7 +151,7 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://best-model-Buffa-30gen-SelectionTournament');
+      await this.model.save('downloads://best-model-Buffa-100gen-Tournament-Crossover');
     }
 
     

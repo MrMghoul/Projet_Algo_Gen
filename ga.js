@@ -7,9 +7,26 @@ function nextGeneration() {
     calculateFitness(end);
 
     for (let i = 0; i < TOTAL; i++) {
+
+      let parentA = pickOneTournament(); // Pour le crossover
+      let parentB = pickOneTournament(); //Pour le crossover
+
       // Pour la mutation, on choisit un parent au hasard
       //population[i] = pickOne();
-      population[i] = pickOneTournament();
+      //population[i] = pickOneTournament();
+      let child; // Pour le crossover
+      if (Math.random() < CROSSOVER_RATE) {
+        // Appliquer le crossover
+        child = crossover(parentA, parentB);
+      } else {
+        // Pas de crossover, on copie simplement un des parents
+        child = new Particle(parentA.brain.copy());
+      }
+
+      
+      child.mutate();
+      population[i] = child; // Pour le crossover
+
     }
 
     // On vide le tableau des voitures
@@ -67,6 +84,11 @@ function nextGeneration() {
     let child = new Particle(best.brain);
     child.mutate();
     return child;
+  }
+
+  function crossover(parentA, parentB) {
+    let childBrain = parentA.brain.crossover(parentB.brain);
+    return new Particle(childBrain);
   }
 
   
