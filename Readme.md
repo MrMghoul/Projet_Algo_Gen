@@ -27,6 +27,9 @@ Models :
     maxspeed: 6,
     maxforce: 0.15,
     activation: "relu"
+
+
+    
     Buffa30 : le model de base avec 30 génération
     Buffa100 : le model de base avec 100 génération
     Buffa30gen-SelectionTournament : Modification de la selection avec tournoi et 0.4 en mutation (Semble moins performent et la voiture est plus lente)
