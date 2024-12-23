@@ -10,6 +10,7 @@ function nextGeneration() {
 
       let parentA = pickOneTournament(); // Pour le crossover
       let parentB = pickOneTournament(); //Pour le crossover
+      
 
       // Pour la mutation, on choisit un parent au hasard
       //population[i] = pickOne();
