@@ -1,10 +1,10 @@
 
 
 const TOTAL = 100;
-const MUTATION_RATE = 0.1;
+const MUTATION_RATE = 0.2; // taux de mutation en 0.2
 const LIFESPAN = 25;
 const SIGHT = 50;
-const MAX_GENERATIONS = 100;
+const MAX_GENERATIONS = 10;
 
 let generationCount = 0;
 
