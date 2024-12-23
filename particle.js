@@ -62,6 +62,7 @@ function pldistance(p1, p2, x, y) {
     mutate() {
       this.brain.mutate(MUTATION_RATE);
     }
+
   
     applyForce(force) {
       this.acc.add(force);
