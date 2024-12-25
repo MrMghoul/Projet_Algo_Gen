@@ -98,7 +98,7 @@ class NeuralNetwork {
 
           // On crée un nouveau tenseur avec les valeurs choisies
           let newTensor = tf.tensor(newValues, shape);
-        newWeights[i] = newTensor;
+          newWeights[i] = newTensor;
       }
 
       // On crée un nouveau réseau de neurones avec les poids choisis
@@ -133,12 +133,26 @@ class NeuralNetwork {
       const model = tf.sequential();
 
       // couche d'activation classique de type sigmoide
-      const hidden = tf.layers.dense({
+      const hidden1 = tf.layers.dense({
         units: this.hidden_nodes,
         inputShape: [this.input_nodes],
         activation: 'relu' // Changer à ReLU
     });
-      model.add(hidden);
+      model.add(hidden1);
+
+      const hidden2 = tf.layers.dense({
+        units: 3,
+        activation: 'relu' // Activation ReLU
+      });
+      model.add(hidden2);
+
+      const hidden3 = tf.layers.dense({
+        units: 5,
+        activation: 'relu' // Activation ReLU
+      });
+      model.add(hidden3);
+
+
       const output = tf.layers.dense({
         units: this.output_nodes,
         activation: 'sigmoid'
@@ -151,6 +165,6 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://best-model-Buffa-100gen-Tournament-Crossover');
+      await this.model.save('downloads://model-2-4-2-FirstFitness-SelectionRank');
     }
   }

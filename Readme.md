@@ -33,4 +33,7 @@ Models :
     Buffa100gen-SelectionTournament : Modification de la selection avec tournoi et 0.4 (plus performent mais toujour lent)
     Buffa30gen-SelectionTournament-Cross : La meme que precedement en rajoutant du crossover 
     Buffa30gen-SelectionTournament-Cross : Crossover a 0.6 (identique au precedent)
+    model-2-4-2: rajout d'une couche cahe dense de 4 neuronne sans crossover et selection avec roulette taux    mutation 0.1 (bien plus performent que tounoi) "best for the moment" 50g
+    model-2-4-2-FitnessFirt: idem que le precendent maais en changeant la fitness en recompenser davantage le premier vehicule ( on appercois qu'il a tendance a allez coller la ligne exteriieur du circuit)
+    model-2-4-2-FitnessFirt: model 3 couches cachez 3n et 5n 
     

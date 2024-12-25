@@ -4,29 +4,40 @@
 function nextGeneration() {
     console.log('next generation');
     
-    calculateFitness(end);
+    //calculateFitness(end);
+    calculateFitnessFirst(end);
+
 
     for (let i = 0; i < TOTAL; i++) {
+/////////////// Cross over et et tournoi ///////////////
+      // let parentA = pickOneTournament(); // Pour le crossover
+      // let parentB = pickOneTournament(); //Pour le crossover
+      // let child; // Pour le crossover
+      // if (Math.random() < CROSSOVER_RATE) {
+      //   // Appliquer le crossover
+      //   child = crossover(parentA, parentB);
+      // } else {
+      //   // Pas de crossover, on copie simplement un des parents
+      //   child = new Particle(parentA.brain.copy());
+      // }
+      // population[i] = child; // Pour le crossover
 
-      let parentA = pickOneTournament(); // Pour le crossover
-      let parentB = pickOneTournament(); //Pour le crossover
-      
+      //////////// Mutation sans cross over sans tournoi ///////////////
+
+      // On choisit un parent au hasard
+      //population[i] = pickOne();
+      population[i] = pickOneRank();
+      child = new Particle(population[i].brain.copy());
+
 
       // Pour la mutation, on choisit un parent au hasard
       //population[i] = pickOne();
       //population[i] = pickOneTournament();
-      let child; // Pour le crossover
-      if (Math.random() < CROSSOVER_RATE) {
-        // Appliquer le crossover
-        child = crossover(parentA, parentB);
-      } else {
-        // Pas de crossover, on copie simplement un des parents
-        child = new Particle(parentA.brain.copy());
-      }
+      
 
       
       child.mutate();
-      population[i] = child; // Pour le crossover
+      
 
     }
 
@@ -87,6 +98,43 @@ function nextGeneration() {
     return child;
   }
 
+
+  // Selection par rang : on trie les individus par fitness
+
+  function calculateRankProbabilities() {
+    // Trier les particules par fitness décroissante
+    savedParticles.sort((a, b) => b.fitness - a.fitness);
+  
+    // Attribuer des probabilités de sélection en fonction du rang
+    let totalRank = 0;
+    for (let i = 1; i <= savedParticles.length; i++) {
+      totalRank += i;
+    }
+  
+    for (let i = 0; i < savedParticles.length; i++) {
+      savedParticles[i].selectionProbability = (savedParticles.length - i) / totalRank;
+    }
+  }
+
+  function pickOneRank() {
+    calculateRankProbabilities();
+  
+    let index = 0;
+    let r = random(1);
+    while (r > 0) {
+      r = r - savedParticles[index].selectionProbability;
+      index++;
+    }
+    index--;
+  
+    let particle = savedParticles[index];
+    let child = new Particle(particle.brain);
+    child.mutate();
+    return child;
+  }
+
+
+
   function crossover(parentA, parentB) {
     let childBrain = parentA.brain.crossover(parentB.brain);
     return new Particle(childBrain);
@@ -107,4 +155,35 @@ function nextGeneration() {
     for (let particle of savedParticles) {
       particle.fitness = particle.fitness / sum;
     }
-  }
+}
+    function calculateFitnessFirst(target) {
+      // Calculer la fitness de chaque voiture
+      for (let particle of savedParticles) {
+        particle.calculateFitness();
+      }
+    
+      // Trouver la voiture avec la meilleure fitness
+      let bestFitness = 0;
+      let bestParticle = null;
+      for (let particle of savedParticles) {
+        if (particle.fitness > bestFitness) {
+          bestFitness = particle.fitness;
+          bestParticle = particle;
+        }
+      }
+    
+      // Ajouter un bonus à la voiture avec la meilleure fitness
+      if (bestParticle) {
+        bestParticle.fitness *= 1.1; // Par exemple, augmenter la fitness de 10%
+      }
+    
+      // Normaliser toutes les valeurs
+      let sum = 0;
+      for (let particle of savedParticles) {
+        sum += particle.fitness;
+      }
+      for (let particle of savedParticles) {
+        particle.fitness = particle.fitness / sum;
+      }
+    }
+  
