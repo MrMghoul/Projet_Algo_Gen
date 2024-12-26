@@ -1,10 +1,10 @@
 
 
 const TOTAL = 100;
-const MUTATION_RATE = 0.4;
-const CROSSOVER_RATE = 0.6;
+const MUTATION_RATE = 2;
+const CROSSOVER_RATE = 0.7;
 const LIFESPAN = 25;
-const SIGHT = 50;
+const SIGHT = 45;
 const MAX_GENERATIONS = 10;
 
 let generationCount = 0;
