@@ -55,7 +55,7 @@ function buildTrack() {
     //Charge les modèles de réseaux de neurones
     //const model1 = await tf.loadLayersModel('https://raw.githubusercontent.com/IDontKnowSoda/Neural-Network-Car/main/Model/model.json');
     const model1 = await tf.loadLayersModel('models/model-2-4-2.json');
-    const model2 = await tf.loadLayersModel('models/model-test.json');
+    const model2 = await tf.loadLayersModel('models/model-1.json');
     const model3 = await tf.loadLayersModel('models/model-2-4-2-500gen.json');
     //const model2 = await tf.loadLayersModel('models/model-3-5-2-FirstFitness.json');
 

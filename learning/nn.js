@@ -146,11 +146,11 @@ class NeuralNetwork {
       });
       model.add(hidden2);
 
-      const hidden3 = tf.layers.dense({
-        units: 4,
-        activation: 'relu' // Activation ReLU
-      });
-      model.add(hidden3);
+      // const hidden3 = tf.layers.dense({
+      //   units: 4,
+      //   activation: 'relu' // Activation ReLU
+      // });
+      // model.add(hidden3);
 
 
       const output = tf.layers.dense({
@@ -165,6 +165,6 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://model-2-4-2-500gen');
+      await this.model.save('downloads://model-1');
     }
   }

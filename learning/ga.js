@@ -25,8 +25,8 @@ function nextGeneration() {
       //////////// Mutation sans cross over sans tournoi ///////////////
 
       // On choisit un parent au hasard
-      //population[i] = pickOne();
-      population[i] = pickOneRank();
+      population[i] = pickOne();
+      //population[i] = pickOneRank();
       child = new Particle(population[i].brain.copy());
 
 
