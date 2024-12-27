@@ -15,11 +15,21 @@
       <img src="/Course/design/logo.png" alt="Logo" id="logo">
       <h1 class="animated-title">Bienvenue dans le Jeu de Voiture</h1>
       <p class="instructions">c'est un jeux pour montrer l'utilité de l'apprentissage pour 3 voitures avec 3 cerveaux differents.</p>
+      <div id="lapsSelection">
+        <select id="lapsDropdown">
+          <option value="" disabled selected>Choisissez le nombre de tours</option>
+          <option value="5">5 Tours</option>
+          <option value="10">10 Tours</option>
+          <option value="15">15 Tours</option>
+        </select>
+      </div>
       <button id="playButton">Play</button>
     </div>
     <div id="background">
       <img src="/Course/design/mario_kart_background.png" alt="Mario Kart Background" id="backgroundImage">
     </div>
+    <div id="carInfoContainer"></div>
+    <div id="leaderboardContainer"></div>
     <script src="ray.js"></script>
     <script src="boundary.js"></script>
     <script src="particles.js"></script>

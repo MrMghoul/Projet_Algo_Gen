@@ -61,6 +61,7 @@ body, html {
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  margin-top: 0.5%;
 }
 
 #playButton:hover {
@@ -87,5 +88,51 @@ body, html {
 #background.transparent {
   opacity: 0.1;
   transition: opacity 0.5s ease;
+}
+
+#carInfoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  background-color: rgba(30, 30, 30, 0.8); /* Fond semi-transparent */
+  color: #fff;
+  z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
+  max-width: 400px;
+}
+
+#leaderboardContainer {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: rgba(30, 30, 30, 0.8); /* Fond semi-transparent */
+  color: #fff;
+  z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
+  max-width: 500px;
+  transition: all 0.5s ease; /* Animation pour les changements */
+  font-size: 1.5em; /* Augmenter la taille du texte */
+}
+#lapsSelection {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#lapsDropdown {
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #2c2929;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+#lapsDropdown:hover {
+  background-color: #322d2d;
 }
 
