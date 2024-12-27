@@ -5,8 +5,9 @@ function pldistance(p1, p2, x, y) {
   }
   
   class Particle {
-    constructor(brain) {
+    constructor(brain, color) {
       // nombre de checkpoints passés
+      this.color = color;
       this.fitness = 0;
       this.dead = false;
       this.finished = false;
@@ -222,6 +223,7 @@ function pldistance(p1, p2, x, y) {
     // Dessin de la voiture
     show() {
       push();
+      fill(this.color);
       translate(this.pos.x, this.pos.y);
       const heading = this.vel.heading();
       rotate(heading);

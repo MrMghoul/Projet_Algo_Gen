@@ -56,13 +56,26 @@ function buildTrack() {
     //const model1 = await tf.loadLayersModel('https://raw.githubusercontent.com/IDontKnowSoda/Neural-Network-Car/main/Model/model.json');
     const model1 = await tf.loadLayersModel('models/model-2-4-2.json');
     const model2 = await tf.loadLayersModel('models/model-1.json');
-    const model3 = await tf.loadLayersModel('models/model-2-4-2-500gen.json');
+    const model3 = await tf.loadLayersModel('models/model-fit-8.json');
+    const model4 = await tf.loadLayersModel('models/model-fit.json');
+    const model5 = await tf.loadLayersModel('models/model-fit (3).json');
     //const model2 = await tf.loadLayersModel('models/model-3-5-2-FirstFitness.json');
 
     // Crée une voiture
-    cars.push(new Particle(model1));
-    cars.push(new Particle(model2));
-    cars.push(new Particle(model3));
+    //cars.push(new Particle(model1));
+    const colors = [
+      color(255, 0, 0), // Rouge
+      color(0, 255, 0), // Vert
+      color(0, 0, 255), // Bleu
+      color(255, 255, 0), // Jaune
+      color(255, 0, 255) // Magenta
+    ];
+  
+    cars.push(new Particle(model1, colors[0]));
+    cars.push(new Particle(model2, colors[1]));
+    cars.push(new Particle(model3, colors[2]));
+    cars.push(new Particle(model4, colors[3]));
+    cars.push(new Particle(model5, colors[4]));
   }
   
   function draw() {
@@ -75,7 +88,7 @@ function buildTrack() {
   
     // on affiche le point de départ et le point d'arrivée
     fill(255);
-    ellipse(start.x, start.y, 10);
+    //yellipse(start.x, start.y, 10);
     ellipse(end.x, end.y, 10);
 
     // on affiche les voitures 

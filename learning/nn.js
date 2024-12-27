@@ -165,6 +165,6 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://model-1');
+      await this.model.save('downloads://model-fit');
     }
   }

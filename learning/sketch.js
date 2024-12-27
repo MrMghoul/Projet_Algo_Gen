@@ -193,3 +193,19 @@ function draw() {
   // ellipse(start.x, start.y, 10);
   // ellipse(end.x, end.y, 10);
 }
+
+
+function keyPressed() {
+  if (key === 's' || key === 'S') {
+    // Sauvegarder le modèle du meilleur véhicule
+    let bestP = population[0];
+    for (let particle of population) {
+      if (particle.fitness > bestP.fitness) {
+        bestP = particle;
+      }
+    }
+    bestP.brain.saveModel().then(() => {
+      console.log('Modèle sauvegardé');
+    });
+  }
+}

@@ -4,8 +4,9 @@
 function nextGeneration() {
     console.log('next generation');
     
-    calculateFitness(end);
+    //calculateFitness(end);
     //calculateFitnessFirst(end);
+    calculateFitnessWithPenalties(end);
 
 
     for (let i = 0; i < TOTAL; i++) {
@@ -185,5 +186,30 @@ function nextGeneration() {
       for (let particle of savedParticles) {
         particle.fitness = particle.fitness / sum;
       }
+
+      
     }
-  
+    function calculateFitnessWithPenalties(target) {
+      for (let particle of savedParticles) {
+        particle.calculateFitness();
+    
+        // Pénaliser si la voiture va en sens inverse
+        if (particle.isGoingReverse()) {
+          particle.fitness *= 0.5; // Réduire la fitness de 50%
+        }
+    
+        // Pénaliser si la voiture tape des murs
+        if (particle.hasHitWall()) {
+          particle.fitness *= 0.5; // Réduire la fitness de 50%
+        }
+      }
+    
+      // Normaliser toutes les valeurs
+      let sum = 0;
+      for (let particle of savedParticles) {
+        sum += particle.fitness;
+      }
+      for (let particle of savedParticles) {
+        particle.fitness = particle.fitness / sum;
+      }
+    }

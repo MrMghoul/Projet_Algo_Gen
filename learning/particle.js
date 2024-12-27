@@ -19,6 +19,8 @@ function pldistance(p1, p2, x, y) {
       this.rays = [];
       this.index = 0;
       this.counter = 0;
+      this.previousPos = this.pos.copy();
+      this.collidedWithWall = false;
   
       // On créer des rayns tous les 15°, entre -45° et 45°
       // on a un angle de vision de 90°
@@ -130,6 +132,20 @@ function pldistance(p1, p2, x, y) {
     // Elle va ensuite appliquer une force pour se diriger
     // vers le checkpoint suivant
     // Elle va aussi éviter les murs
+
+    isGoingReverse() {
+      // Vérifier si la voiture va en sens inverse
+      let currentDirection = p5.Vector.sub(this.pos, this.previousPos);
+      let angle = currentDirection.angleBetween(this.vel);
+      this.previousPos = this.pos.copy();
+      return abs(angle) > PI / 2; // Si l'angle est supérieur à 90 degrés, la voiture va en sens inverse
+    }
+
+    hasHitWall() {
+      // Vérifier si la voiture a tapé des murs
+      return this.collidedWithWall;
+    }
+
     look(walls) {
 
       // Lancement des rayons
@@ -137,6 +153,7 @@ function pldistance(p1, p2, x, y) {
       // pour voir si on a des murs
       // On va ensuite prendre des décisions
       // en fonction de ce qu'on voit
+      this.collidedWithWall = false;
       const inputs = [];
 
       // Pour chaque rayon
