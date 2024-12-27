@@ -71,11 +71,11 @@ function buildTrack() {
       color(255, 0, 255) // Magenta
     ];
   
-    cars.push(new Particle(model1, colors[0]));
+    //cars.push(new Particle(model1, colors[0]));
     cars.push(new Particle(model2, colors[1]));
-    cars.push(new Particle(model3, colors[2]));
-    cars.push(new Particle(model4, colors[3]));
-    cars.push(new Particle(model5, colors[4]));
+    //cars.push(new Particle(model3, colors[2]));
+    //cars.push(new Particle(model4, colors[3]));
+    //cars.push(new Particle(model5, colors[4]));
   }
   
   function draw() {
