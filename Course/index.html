@@ -7,16 +7,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.1.0/dist/tf.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <title>Voiture</title>
   </head>
   <body>
+    <div id="overlay">
+      <img src="/Course/design/logo.png" alt="Logo" id="logo">
+      <h1 class="animated-title">Bienvenue dans le Jeu de Voiture</h1>
+      <p class="instructions">c'est un jeux pour montrer l'utilité de l'apprentissage pour 3 voitures avec 3 cerveaux differents.</p>
+      <button id="playButton">Play</button>
+    </div>
+    <div id="background">
+      <img src="/Course/design/mario_kart_background.png" alt="Mario Kart Background" id="backgroundImage">
+    </div>
     <script src="ray.js"></script>
     <script src="boundary.js"></script>
     <script src="particles.js"></script>
     <script src="sketch.js"></script>
     <script src="nn.js"></script>
     <script src="ga.js"></script>
-
-
   </body>
 </html>
