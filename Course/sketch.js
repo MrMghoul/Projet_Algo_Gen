@@ -48,15 +48,20 @@ function buildTrack() {
 async function setup() {
     createCanvas(1200, 800);
     buildTrack();
-    const model1 = await tf.loadLayersModel('models/model-2-4-2.json');
-    const model2 = await tf.loadLayersModel('models/model-test.json');
-    const model3 = await tf.loadLayersModel('models/model-2-4-2-500gen.json');
+    const model1 = await tf.loadLayersModel('models/model-5.json');
+    const model2 = await tf.loadLayersModel('models/model-3.json');
+    const model3 = await tf.loadLayersModel('models/model-4.json');
     const model4 = await tf.loadLayersModel('models/model-1.json');
+    const model5 = await tf.loadLayersModel('models/model-fit (5).json');
+    const model6 = await tf.loadLayersModel('models/model-2.json');
 
-    cars.push(new Particle(model1, 'red'));
-    cars.push(new Particle(model2, 'blue'));
-    cars.push(new Particle(model3, 'green'));
-    cars.push(new Particle(model4, 'yellow'));
+
+     cars.push(new Particle(model1, 'red'));
+     cars.push(new Particle(model2, 'blue'));
+     cars.push(new Particle(model3, 'green'));
+     cars.push(new Particle(model4, 'yellow'));
+    // cars.push(new Particle(model5, 'purple'));
+     cars.push(new Particle(model6, 'orange'));
 
     document.getElementById('playButton').addEventListener('click', () => {
         gameStarted = true;

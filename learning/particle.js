@@ -13,7 +13,7 @@ function pldistance(p1, p2, x, y) {
       this.pos = createVector(start.x, start.y);
       this.vel = createVector();
       this.acc = createVector();
-      this.maxspeed = 5;
+      this.maxspeed = 6;
       this.maxforce = 0.2;
       this.sight = SIGHT;
       this.rays = [];
@@ -52,7 +52,7 @@ function pldistance(p1, p2, x, y) {
         // On a donc 342 + 18 = 360 biais
         // On a donc 360 + 342 = 702 paramètres
         //this.brain = new NeuralNetwork(this.rays.length, this.rays.length * 2, 2);
-        this.brain = new NeuralNetwork(this.rays.length, this.rays.length * 3, 2); // 3 fois plus de neurones cachés
+        this.brain = new NeuralNetwork(this.rays.length, 12, 2); // 3 fois plus de neurones cachés
       }
     }
   

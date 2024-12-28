@@ -4,9 +4,9 @@
 function nextGeneration() {
     console.log('next generation');
     
-    //calculateFitness(end);
+    calculateFitness(end);
     //calculateFitnessFirst(end);
-    calculateFitnessWithPenalties(end);
+    //calculateFitnessWithPenalties(end);
 
 
     for (let i = 0; i < TOTAL; i++) {

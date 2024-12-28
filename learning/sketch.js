@@ -5,9 +5,11 @@ const MUTATION_RATE = 0.1;
 const CROSSOVER_RATE = 0.6;
 const LIFESPAN = 25;
 const SIGHT = 50;
-const MAX_GENERATIONS = 300
+const MAX_GENERATIONS = 100
 
 let generationCount = 0;
+let bestFitnessEver = 0;
+let bestGenerationEver = 0;
 
 // Murs du circuit
 let walls = [];
@@ -144,6 +146,7 @@ function draw() {
       nextGeneration();
       generationCount++;
       changeMap = false;
+      console.log(`Génération ${generationCount}: Meilleure fitness = ${bestP.fitness}`);
     }
 
     // Si jamais on a plus de voitures, on passe à la génération suivante
@@ -152,6 +155,14 @@ function draw() {
       buildTrack();
       nextGeneration();
       generationCount++;
+      console.log(`Génération ${generationCount}: Meilleure fitness = ${bestP.fitness}`);
+    }
+
+    if (bestP.fitness > bestFitnessEver) {
+      bestFitnessEver = bestP.fitness;
+      bestGenerationEver = generationCount;
+      document.getElementById('best-fitness').innerText = bestFitnessEver;
+      document.getElementById('best-generation').innerText = bestGenerationEver;
     }
     // Sauvegarder le modèle du meilleur véhicule à la fin de l'algorithme génétique
     if (generationCount >= MAX_GENERATIONS) {

@@ -104,24 +104,15 @@ class NeuralNetwork {
       const model = tf.sequential();
 
       // couche d'activation classique de type sigmoide
-      const hidden1 = tf.layers.dense({
-        units: this.hidden_nodes,
+      model.add(tf.layers.dense({
+        units: this.hidden_nodes, // Première couche cachée
         inputShape: [this.input_nodes],
-        activation: 'relu' // Changer à ReLU
-    });
-      model.add(hidden1);
-
-      const hidden2 = tf.layers.dense({
-        units: 2,
-        activation: 'relu' // Activation ReLU
-      });
-      model.add(hidden2);
-
-      // const hidden3 = tf.layers.dense({
-      //   units: 4,
-      //   activation: 'relu' // Activation ReLU
-      // });
-      // model.add(hidden3);
+        activation: 'relu'
+     }));
+     model.add(tf.layers.dense({
+        units: 6, // Deuxième couche cachée
+        activation: 'relu'
+     }));
 
 
       const output = tf.layers.dense({
@@ -136,6 +127,6 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://model-fit');
+      await this.model.save('downloads://model-5');
     }
   }
