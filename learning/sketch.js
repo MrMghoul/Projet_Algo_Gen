@@ -3,13 +3,15 @@
 const TOTAL = 100;
 const MUTATION_RATE = 0.1;
 const CROSSOVER_RATE = 0.6;
-const LIFESPAN = 25;
-const SIGHT = 50;
-const MAX_GENERATIONS = 100
+const LIFESPAN = 55;
+const SIGHT = 70;
+const MAX_GENERATIONS = 4;
 
 let generationCount = 0;
 let bestFitnessEver = 0;
 let bestGenerationEver = 0;
+let bestParticleEver = null;
+
 
 // Murs du circuit
 let walls = [];
@@ -36,7 +38,7 @@ function buildTrack() {
   inside = [];
   outside = [];
 
-  let noiseMax = 4;
+  let noiseMax = 2;
   const total = 60;
   const pathWidth = 60;
   let startX = random(1000);
@@ -158,18 +160,24 @@ function draw() {
       console.log(`Génération ${generationCount}: Meilleure fitness = ${bestP.fitness}`);
     }
 
-    if (bestP.fitness > bestFitnessEver) {
+    if (bestP.fitness >= bestFitnessEver) {
       bestFitnessEver = bestP.fitness;
       bestGenerationEver = generationCount;
+      bestParticleEver = bestP.copy();
+      console.log('Meilleure particule trouvée'+ bestParticleEver);
+      console.log('Meilleure particule trouvée (best)'+ bestP);
+
       document.getElementById('best-fitness').innerText = bestFitnessEver;
       document.getElementById('best-generation').innerText = bestGenerationEver;
     }
     // Sauvegarder le modèle du meilleur véhicule à la fin de l'algorithme génétique
     if (generationCount >= MAX_GENERATIONS) {
-      bestP.brain.saveModel().then(() => {
-        noLoop(); // Arrête la boucle de dessin
-        console.log('Modèle sauvegardé');
-      });
+      if (bestParticleEver) {
+        bestParticleEver.brain.saveModel().then(() => {
+          noLoop();
+          console.log('Modèle sauvegardé');
+        });
+      }
       return;
     }
   }
@@ -203,6 +211,8 @@ function draw() {
 
   // ellipse(start.x, start.y, 10);
   // ellipse(end.x, end.y, 10);
+  console.log('Meilleure particule trouvée'+ bestParticleEver);
+  console.log('Meilleure particule trouvée (best)'+ bestP);
 }
 
 

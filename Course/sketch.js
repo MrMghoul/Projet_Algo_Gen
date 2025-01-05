@@ -1,5 +1,5 @@
-const SIGHT = 50; // Définir la portée de vision des voitures
-const LIFESPAN = 500;
+const SIGHT = 70; // Définir la portée de vision des voitures
+const LIFESPAN = 1000;
 let walls = [];
 let inside = [];
 let outside = [];
@@ -13,7 +13,7 @@ function buildTrack() {
     checkpoints = [];
     inside = [];
     outside = [];
-    let noiseMax = 4;
+    let noiseMax = 2;
     const total = 60;
     const pathWidth = 60;
     let startX = random(1000);
@@ -48,20 +48,44 @@ function buildTrack() {
 async function setup() {
     createCanvas(1200, 800);
     buildTrack();
-    const model1 = await tf.loadLayersModel('models/model-5.json');
+    //const model1 = await tf.loadLayersModel('models/model16.json');
     const model2 = await tf.loadLayersModel('models/model-3.json');
-    const model3 = await tf.loadLayersModel('models/model-4.json');
+    const model3 = await tf.loadLayersModel('models/model8_2.json');
     const model4 = await tf.loadLayersModel('models/model-1.json');
-    const model5 = await tf.loadLayersModel('models/model-fit (5).json');
+    const model5 = await tf.loadLayersModel('models/model9.json');
     const model6 = await tf.loadLayersModel('models/model-2.json');
+    const model7 = await tf.loadLayersModel('models/model15.json');
+    const model8 = await tf.loadLayersModel('models/model-1.json');
+    const model9 = await tf.loadLayersModel('models/model-2 (4).json');
+    const model10 = await tf.loadLayersModel('models/model-2 (3).json');
+    const model11 = await tf.loadLayersModel('models/model17.json');
+    const model12 = await tf.loadLayersModel('models/model17_2.json');
+    const model13 = await tf.loadLayersModel('models/model17_3.json');
+    const model14 = await tf.loadLayersModel('models/model17_4.json');
+    const model15 = await tf.loadLayersModel('models/model19_1.json');
+    const model16 = await tf.loadLayersModel('models/model20_1.json');
+    const model17 = await tf.loadLayersModel('models/model20_2.json');
 
 
-     cars.push(new Particle(model1, 'red'));
-     cars.push(new Particle(model2, 'blue'));
-     cars.push(new Particle(model3, 'green'));
-     cars.push(new Particle(model4, 'yellow'));
-    // cars.push(new Particle(model5, 'purple'));
-     cars.push(new Particle(model6, 'orange'));
+    //cars.push(new Particle(model1, 'red'));
+    cars.push(new Particle(model2, 'blue'));
+    cars.push(new Particle(model3, 'green'));
+    cars.push(new Particle(model4, 'yellow'));
+    cars.push(new Particle(model5, 'purple'));
+    cars.push(new Particle(model6, 'orange'));
+    cars.push(new Particle(model7, 'pink'));
+    cars.push(new Particle(model8, 'brown'));
+    cars.push(new Particle(model9, 'cyan'));
+    cars.push(new Particle(model10, 'magenta'));
+    cars.push(new Particle(model11, 'lime'));
+    cars.push(new Particle(model12, 'teal'));
+    cars.push(new Particle(model13, 'indigo'));
+    cars.push(new Particle(model14, 'violet'));
+    cars.push(new Particle(model15, 'white'));
+    cars.push(new Particle(model16, 'red'));
+    cars.push(new Particle(model17, 'blue'));
+
+
 
     document.getElementById('playButton').addEventListener('click', () => {
         gameStarted = true;

@@ -55,6 +55,10 @@ function pldistance(p1, p2, x, y) {
         this.brain = new NeuralNetwork(this.rays.length, 12, 2); // 3 fois plus de neurones cachés
       }
     }
+
+    copy() {
+      return new Particle(this.brain.copy(), this.color);
+    }
   
     dispose() {
       this.brain.dispose();

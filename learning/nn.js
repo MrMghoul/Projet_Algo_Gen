@@ -109,10 +109,23 @@ class NeuralNetwork {
         inputShape: [this.input_nodes],
         activation: 'relu'
      }));
+
      model.add(tf.layers.dense({
-        units: 6, // Deuxième couche cachée
-        activation: 'relu'
-     }));
+      units: 3, // Deuxième couche cachée
+      activation: 'relu'
+    }));
+
+    model.add(tf.layers.dense({
+      units: 3, // Deuxième couche cachée
+      activation: 'relu'
+    }));
+
+    // couche dropout
+    model.add(tf.layers.dropout({
+      rate: 0.5
+    }));
+
+     
 
 
       const output = tf.layers.dense({
@@ -127,6 +140,6 @@ class NeuralNetwork {
       // On sauvegarde le modèle dans le dossier 9-VoitureSuitCircuit genetic algo
       // sous le nom best-model-Buffa100gen
       
-      await this.model.save('downloads://model-5');
+      await this.model.save('downloads://model20_2');
     }
   }
