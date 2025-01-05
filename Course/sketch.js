@@ -7,8 +7,7 @@ let checkpoints = [];
 let start, end;
 let cars = [];
 let gameStarted = false;
-let laps = 0; // Nombre de tours choisi
-let lapsCompleted = [0, 0, 0, 0]; // Nombre de tours complétés par chaque voiture
+let xOffset = 20;
 
 function buildTrack() {
     checkpoints = [];
@@ -60,15 +59,9 @@ async function setup() {
     cars.push(new Particle(model4, 'yellow'));
 
     document.getElementById('playButton').addEventListener('click', () => {
-        const lapsDropdown = document.getElementById('lapsDropdown');
-        laps = parseInt(lapsDropdown.value);
-        if (isNaN(laps)) {
-            alert('Veuillez choisir le nombre de tours.');
-        } else {
-            gameStarted = true;
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('background').classList.add('transparent');
-        }
+        gameStarted = true;
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('background').classList.add('transparent');
     });
 }
 
@@ -92,27 +85,8 @@ function draw() {
         car.update();
         car.show();
     }  
-    displayCarInfoAndLeaderboard();
-    checkRaceEnd();
-}
+    displayCarInfoAndLeaderboard();  // Ajoutez cet appel pour afficher les infos
 
-function checkLaps(car) {
-    if (car.pos.dist(end) < 10 && !car.finished) {
-        lapsCompleted[cars.indexOf(car)]++;
-        car.finished = true;
-        setTimeout(() => car.finished = false, 1000); // Empêche de compter plusieurs tours en même temps
-    }
-}
-
-function checkRaceEnd() {
-    for (let i = 0; i < cars.length; i++) {
-        if (lapsCompleted[i] >= laps) {
-            gameStarted = false;
-            alert(`Car ${i + 1} wins!`);
-            noLoop();
-            break;
-        }
-    }
 }
 
 function displayCarInfoAndLeaderboard() {
@@ -144,4 +118,4 @@ function displayCarInfoAndLeaderboard() {
       leaderboardHtml += `<p style="color: ${car.color};">${i + 1}. Car ${cars.indexOf(car) + 1}</p>`;
     }
     leaderboardContainer.innerHTML = leaderboardHtml;
-}
+  }

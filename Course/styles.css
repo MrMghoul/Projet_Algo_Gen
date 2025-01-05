@@ -136,3 +136,25 @@ body, html {
   background-color: #322d2d;
 }
 
+#trackSelection {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.trackImage {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin: 0 10px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.trackImage:hover {
+  border-color: #fff;
+}
+
+.trackImage.selected {
+  border-color: #f00;
+}
