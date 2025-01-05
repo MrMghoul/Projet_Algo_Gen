@@ -119,61 +119,32 @@ function draw() {
 }
 
 function displayCarInfoAndLeaderboard() {
-  textSize(16);
-  textAlign(LEFT, TOP);
-
-  let infoBackground = color(30, 30, 30);  // Couleur de fond
-  let titleColor = color(255, 255, 0);     // Couleur jaune pour le titre
-  let textColor = color(200, 200, 200);    // Couleur du texte
-  let padding = 10;
-
-  let y = 20;
-
-  // Fond de la zone d'information
-  fill(infoBackground);
-  noStroke();
-  rect(xOffset, y - padding, 400, cars.length * 25 + 40); // Fond de la section info
-
-  // Titre de la section (jaune et gras)
-  fill(titleColor);
-  textSize(18);
-  textStyle(BOLD);  // Titre en gras
-  text('🚗 Car Information:', xOffset + 10, y);
-  textStyle(NORMAL); // Retour au texte normal pour les autres informations
-  y += 30;
-
-  // Liste des voitures
-  fill(textColor);
-  textSize(16);
-  for (let i = 0; i < cars.length; i++) {
+    let carInfoContainer = document.getElementById('carInfoContainer');
+    if (!carInfoContainer) {
+      carInfoContainer = document.createElement('div');
+      carInfoContainer.id = 'carInfoContainer';
+      document.body.appendChild(carInfoContainer);
+    }
+  
+    let leaderboardContainer = document.getElementById('leaderboardContainer');
+    if (!leaderboardContainer) {
+      leaderboardContainer = document.createElement('div');
+      leaderboardContainer.id = 'leaderboardContainer';
+      document.body.appendChild(leaderboardContainer);
+    }
+  
+    let carInfoHtml = '<h2>🚗 Car Information:</h2>';
+    for (let i = 0; i < cars.length; i++) {
       let car = cars[i];
-      text(
-          `Car ${i + 1} - Color: ${car.color}, Fitness: ${car.fitness.toFixed(2)}, Status: ${car.dead ? 'Dead' : 'Alive'}`,
-          xOffset + 10,
-          y
-      );
-      y += 25;
-  }
-
-  y += 20; // Petit interligne avant d'afficher le leaderboard
-
-  // Affichage du leaderboard
-  let sortedCars = cars.slice().sort((a, b) => b.fitness - a.fitness);
-
-  fill(titleColor);
-  textSize(22);
-  text('🏆 Leaderboard:', xOffset + 10, y); // Titre du classement
-  y += 40;
-
-  fill(textColor);
-  textSize(20);
-  for (let i = 0; i < sortedCars.length; i++) {
+      carInfoHtml += `<p>Car ${i + 1} - Color: ${car.color}, Fitness: ${car.fitness.toFixed(2)}, Status: ${car.dead ? 'Dead' : 'Alive'}</p>`;
+    }
+    carInfoContainer.innerHTML = carInfoHtml;
+  
+    let leaderboardHtml = '<h2>🏆 Leaderboard:</h2>';
+    let sortedCars = cars.slice().sort((a, b) => b.fitness - a.fitness);
+    for (let i = 0; i < sortedCars.length; i++) {
       let car = sortedCars[i];
-      text(
-          `${i + 1}. Car ${cars.indexOf(car) + 1} - Fitness: ${car.fitness.toFixed(2)}`,
-          xOffset + 20,
-          y // Affichage du classement
-      );
-      y += 35;
+      leaderboardHtml += `<p style="color: ${car.color};">${i + 1}. Car ${cars.indexOf(car) + 1}</p>`;
+    }
+    leaderboardContainer.innerHTML = leaderboardHtml;
   }
-}
