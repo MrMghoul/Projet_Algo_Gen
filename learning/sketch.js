@@ -5,7 +5,7 @@ const MUTATION_RATE = 0.1;
 const CROSSOVER_RATE = 0.6;
 const LIFESPAN = 55;
 const SIGHT = 70;
-const MAX_GENERATIONS = 4;
+const MAX_GENERATIONS = 100;
 
 let generationCount = 0;
 let bestFitnessEver = 0;
