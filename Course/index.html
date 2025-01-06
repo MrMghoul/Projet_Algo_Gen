@@ -26,15 +26,28 @@
       <p id="chooseLapsMessage" class="instructions">Veuillez choisir le nombre de tours avant de commencer le jeu.</p>
       <button id="playButton" disabled>Play</button>
     </div>
-      <div 
-        id="background"><img src="./design/mario_kart_background.jpg" alt="Mario Kart Background" id="backgroundImage">
-      </div>
+    <div id="background">
+      <img src="/Course/design/mario_kart_background.jpg" alt="Mario Kart Background" id="backgroundImage">
+    </div>
     <div id="leaderboardContainer"></div>
+    <div id="debugMessage">Appuyez sur D pour le mode debug</div>
     <script src="ray.js"></script>
     <script src="boundary.js"></script>
     <script src="particles.js"></script>
     <script src="sketch.js"></script>
     <script src="nn.js"></script>
     <script src="ga.js"></script>
+    <script>
+      document.getElementById('playButton').addEventListener('click', function() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('debugMessage').style.display = 'block';
+      });
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'd' || event.key === 'D') {
+          // Activer le mode debug
+          console.log('Mode debug activé');
+        }
+      });
+    </script>
   </body>
 </html>

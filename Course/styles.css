@@ -90,7 +90,6 @@ body, html {
   transition: opacity 0.5s ease;
 }
 
-
 #leaderboardContainer {
   position: absolute;
   top: 50%;
@@ -104,6 +103,7 @@ body, html {
   transition: all 0.5s ease; /* Animation pour les changements */
   font-size: 1.3em; /* Augmenter la taille du texte */
 }
+
 #lapsSelection {
   display: flex;
   justify-content: center;
@@ -149,7 +149,6 @@ body, html {
   border-color: #f00;
 }
 
-
 #mainMenuButton {
   position: absolute;
   left: 20px;
@@ -170,4 +169,22 @@ body, html {
 #mainMenuButton:hover {
   background-color: #ff6b81;
   transform: scale(1.1);
+}
+
+#debugMessage {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: none;
+}
+
+canvas {
+  transform: scale(0.9);
+  transform-origin: top left;
 }
