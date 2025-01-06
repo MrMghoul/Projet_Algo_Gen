@@ -25,6 +25,8 @@ class Particle {
     this.startTime = millis(); // Ajouter une propriété pour suivre le temps écoulé depuis le début du tour
     this.distanceTravelled = 0; // Ajouter une propriété pour suivre la distance parcourue
     this.crossedStartLine = false; // Ajouter une propriété pour suivre si la voiture a franchi la ligne de départ
+    this.reverseDirection = false; // Ajouter une propriété pour indiquer le sens inverse
+
 
     for (let a = -45; a < 45; a += 15) {
       this.rays.push(new Ray(this.pos, radians(a)));
@@ -73,41 +75,29 @@ class Particle {
       this.goal = checkpoints[this.index];
       const d = pldistance(this.goal.a, this.goal.b, this.pos.x, this.pos.y);
       if (d < 5) {
-        const currentTime = millis();
-        const timeElapsed = currentTime - this.startTime;
-  
         // Vérifier si la voiture a franchi la ligne de départ
         if (this.index === 0 && !this.crossedStartLine) {
           this.crossedStartLine = true;
         }
-  
-        // Vérifier si la voiture a franchi un checkpoint dans l'ordre
-        if (this.crossedStartLine && timeElapsed > 5000 && this.distanceTravelled > 100) { // Vérifier que 5 secondes se sont écoulées et que la voiture a parcouru une distance suffisante
-          if (this.index === 0 && this.lastCheckpointIndex === checkpoints.length - 1) {
+
+        // Vérifier si la voiture a franchi un checkpoint dans l'ordre inverse
+        if (this.crossedStartLine) {
+          if (this.index === 0 && this.lastCheckpointIndex === 1) {
             this.laps++;
-          } else if (this.index === checkpoints.length - 1 && this.lastCheckpointIndex === 0) {
-            this.laps--;
-          } else if (this.index === (this.lastCheckpointIndex + 1) % checkpoints.length) {
-            this.laps++;
-          } else if (this.index === (this.lastCheckpointIndex - 1 + checkpoints.length) % checkpoints.length) {
-            this.laps--;
+            console.log(`Car ${cars.indexOf(this) + 1} completed lap ${this.laps} in reverse direction`);
           }
-  
+
           this.lastCheckpointIndex = this.index;
-          this.index = (this.index + 1) % checkpoints.length;
+          this.index = (this.index - 1 + checkpoints.length) % checkpoints.length;
           this.fitness++;
           this.counter = 0;
-  
-          // Réinitialiser le temps et la distance parcourue pour le prochain tour
-          this.startTime = currentTime;
-          this.distanceTravelled = 0;
         }
       }
     }
   }
 
   reverseDirection() {
-    this.direction *= -1;
+    this.reverseDirection = !this.reverseDirection;
   }
 
   calculateFitness() {

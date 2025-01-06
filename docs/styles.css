@@ -90,16 +90,6 @@ body, html {
   transition: opacity 0.5s ease;
 }
 
-#carInfoContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px;
-  background-color: rgba(30, 30, 30, 0.8); /* Fond semi-transparent */
-  color: #fff;
-  z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
-  max-width: 400px;
-}
 
 #leaderboardContainer {
   position: absolute;
@@ -159,16 +149,25 @@ body, html {
   border-color: #f00;
 }
 
-/* ...existing code... */
-#speedSliderContainer {
+
+#mainMenuButton {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #ff4757;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  z-index: 1001; /* Assurez-vous que le bouton est au-dessus de tout */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: none; /* Masquer le bouton initialement */
 }
 
-#speedSlider {
-  width: 300px;
+#mainMenuButton:hover {
+  background-color: #ff6b81;
+  transform: scale(1.1);
 }
-/* ...existing code... */
