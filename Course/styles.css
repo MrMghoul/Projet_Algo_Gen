@@ -183,8 +183,3 @@ body, html {
   font-size: 14px;
   display: none;
 }
-
-canvas {
-  transform: scale(0.8);
-  transform-origin: top left;
-}
