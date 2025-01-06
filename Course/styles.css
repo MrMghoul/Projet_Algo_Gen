@@ -112,7 +112,7 @@ body, html {
   z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
   max-width: 500px;
   transition: all 0.5s ease; /* Animation pour les changements */
-  font-size: 1.5em; /* Augmenter la taille du texte */
+  font-size: 1.3em; /* Augmenter la taille du texte */
 }
 #lapsSelection {
   display: flex;
@@ -158,3 +158,17 @@ body, html {
 .trackImage.selected {
   border-color: #f00;
 }
+
+/* ...existing code... */
+#speedSliderContainer {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20; /* Assurez-vous que le conteneur est au-dessus de tout le reste */
+}
+
+#speedSlider {
+  width: 300px;
+}
+/* ...existing code... */

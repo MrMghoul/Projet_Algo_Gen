@@ -20,6 +20,11 @@ class Particle {
     this.counter = 0;
     this.brain = brain;
     this.color = color; // Ajouter la couleur de la voiture
+    this.laps = 0; // Ajouter une propriété pour suivre le nombre de tours
+    this.lastCheckpointIndex = 0; // Ajouter une propriété pour suivre le dernier checkpoint franchi
+    this.startTime = millis(); // Ajouter une propriété pour suivre le temps écoulé depuis le début du tour
+    this.distanceTravelled = 0; // Ajouter une propriété pour suivre la distance parcourue
+    this.crossedStartLine = false; // Ajouter une propriété pour suivre si la voiture a franchi la ligne de départ
 
     for (let a = -45; a < 45; a += 15) {
       this.rays.push(new Ray(this.pos, radians(a)));
@@ -44,19 +49,22 @@ class Particle {
 
   update() {
     if (!this.dead && !this.finished) {
-      this.pos.add(this.vel);
+      this.pos.add(p5.Vector.mult(this.vel, speedMultiplier));
       this.vel.add(this.acc);
       this.vel.limit(this.maxspeed);
       this.acc.set(0, 0);
-
+  
       this.counter++;
       if (this.counter > LIFESPAN) {
         this.dead = true;
       }
-
+  
       for (let i = 0; i < this.rays.length; i++) {
         this.rays[i].rotate(this.vel.heading());
       }
+  
+      // Ajouter la distance parcourue à la propriété distanceTravelled
+      this.distanceTravelled += this.vel.mag();
     }
   }
 
@@ -65,11 +73,41 @@ class Particle {
       this.goal = checkpoints[this.index];
       const d = pldistance(this.goal.a, this.goal.b, this.pos.x, this.pos.y);
       if (d < 5) {
-        this.index = (this.index + 1) % checkpoints.length;
-        this.fitness++;
-        this.counter = 0;
+        const currentTime = millis();
+        const timeElapsed = currentTime - this.startTime;
+  
+        // Vérifier si la voiture a franchi la ligne de départ
+        if (this.index === 0 && !this.crossedStartLine) {
+          this.crossedStartLine = true;
+        }
+  
+        // Vérifier si la voiture a franchi un checkpoint dans l'ordre
+        if (this.crossedStartLine && timeElapsed > 5000 && this.distanceTravelled > 100) { // Vérifier que 5 secondes se sont écoulées et que la voiture a parcouru une distance suffisante
+          if (this.index === 0 && this.lastCheckpointIndex === checkpoints.length - 1) {
+            this.laps++;
+          } else if (this.index === checkpoints.length - 1 && this.lastCheckpointIndex === 0) {
+            this.laps--;
+          } else if (this.index === (this.lastCheckpointIndex + 1) % checkpoints.length) {
+            this.laps++;
+          } else if (this.index === (this.lastCheckpointIndex - 1 + checkpoints.length) % checkpoints.length) {
+            this.laps--;
+          }
+  
+          this.lastCheckpointIndex = this.index;
+          this.index = (this.index + 1) % checkpoints.length;
+          this.fitness++;
+          this.counter = 0;
+  
+          // Réinitialiser le temps et la distance parcourue pour le prochain tour
+          this.startTime = currentTime;
+          this.distanceTravelled = 0;
+        }
       }
     }
+  }
+
+  reverseDirection() {
+    this.direction *= -1;
   }
 
   calculateFitness() {
@@ -97,7 +135,7 @@ class Particle {
         this.dead = true;
       }
       inputs[i] = map(record, 0, this.sight, 1, 0);
-      if (closest) {
+      if (closest && showRays) {
         colorMode(HSB);
         stroke((i + frameCount * 2) % 360, 255, 255, 50);
         stroke(255);
@@ -107,11 +145,11 @@ class Particle {
     const xs = tf.tensor2d([inputs]);
     const output = this.brain.predict(xs).dataSync();
     xs.dispose();
-
+  
     let angle = map(output[0], 0, 1, -PI, PI);
     let speed = map(output[1], 0, 1, 0, this.maxspeed);
     angle += this.vel.heading();
-
+  
     const steering = p5.Vector.fromAngle(angle);
     steering.setMag(speed);
     steering.sub(this.vel);

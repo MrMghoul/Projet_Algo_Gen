@@ -8,6 +8,13 @@ let start, end;
 let cars = [];
 let gameStarted = false;
 let xOffset = 20;
+let lapsToComplete = 0;
+let showRays = false;
+let speedMultiplier = 1;
+
+document.getElementById('speedSlider').addEventListener('input', function() {
+  speedMultiplier = parseFloat(this.value);
+});
 
 function buildTrack() {
     checkpoints = [];
@@ -45,106 +52,191 @@ function buildTrack() {
     end = checkpoints[checkpoints.length - 1].midpoint();
 }
 
-async function setup() {
-    createCanvas(1200, 800);
-    buildTrack();
-    //const model1 = await tf.loadLayersModel('models/model16.json');
-    const model2 = await tf.loadLayersModel('models/model-3.json');
-    const model3 = await tf.loadLayersModel('models/model8_2.json');
-    const model4 = await tf.loadLayersModel('models/model-1.json');
-    const model5 = await tf.loadLayersModel('models/model9.json');
-    const model6 = await tf.loadLayersModel('models/model-2.json');
-    const model7 = await tf.loadLayersModel('models/model15.json');
-    const model8 = await tf.loadLayersModel('models/model-1.json');
-    const model9 = await tf.loadLayersModel('models/model-2 (4).json');
-    const model10 = await tf.loadLayersModel('models/model-2 (3).json');
-    const model11 = await tf.loadLayersModel('models/model17.json');
-    const model12 = await tf.loadLayersModel('models/model17_2.json');
-    const model13 = await tf.loadLayersModel('models/model17_3.json');
-    const model14 = await tf.loadLayersModel('models/model17_4.json');
-    const model15 = await tf.loadLayersModel('models/model19_1.json');
-    const model16 = await tf.loadLayersModel('models/model20_1.json');
-    const model17 = await tf.loadLayersModel('models/model20_2.json');
+function drawStartingLine() {
+  const lineLength = 120; // Longueur de la ligne de départ
+  const numSquares = 9; // Nombre de carrés sur la ligne
+  const squareSize = lineLength / numSquares; // Taille de chaque carré
 
+  // Calculer les points de la ligne de départ
+  const startLine = checkpoints[0];
+  const startMid = startLine.midpoint();
+  const angle = atan2(startLine.b.y - startLine.a.y, startLine.b.x - startLine.a.x);
 
-    //cars.push(new Particle(model1, 'red'));
-    cars.push(new Particle(model2, 'blue'));
-    cars.push(new Particle(model3, 'green'));
-    cars.push(new Particle(model4, 'yellow'));
-    cars.push(new Particle(model5, 'purple'));
-    cars.push(new Particle(model6, 'orange'));
-    cars.push(new Particle(model7, 'pink'));
-    cars.push(new Particle(model8, 'brown'));
-    cars.push(new Particle(model9, 'cyan'));
-    cars.push(new Particle(model10, 'magenta'));
-    cars.push(new Particle(model11, 'lime'));
-    cars.push(new Particle(model12, 'teal'));
-    cars.push(new Particle(model13, 'indigo'));
-    cars.push(new Particle(model14, 'violet'));
-    cars.push(new Particle(model15, 'white'));
-    cars.push(new Particle(model16, 'red'));
-    cars.push(new Particle(model17, 'blue'));
+  push();
+  translate(startMid.x, startMid.y);
+  rotate(angle);
 
+  for (let i = 0; i < numSquares; i++) {
+    fill(i % 2 === 0 ? 255 : 0); // Alterner entre blanc et noir
+    rect(i * squareSize - lineLength / 2, -5, squareSize, 10); // Dessiner le carré
+  }
 
-
-    document.getElementById('playButton').addEventListener('click', () => {
-        gameStarted = true;
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('background').classList.add('transparent');
-    });
+  pop();
 }
 
-function draw() {
-    if (!gameStarted) return;
+async function setup() {
+  createCanvas(1200, 800);
+  buildTrack();
+  //const model1 = await tf.loadLayersModel('models/model16.json');
+  const model2 = await tf.loadLayersModel('models/model-3.json');
+  const model3 = await tf.loadLayersModel('models/model8_2.json');
+  const model5 = await tf.loadLayersModel('models/model9.json');
+  const model6 = await tf.loadLayersModel('models/model-2.json');
+  const model7 = await tf.loadLayersModel('models/model15.json');
+  const model8 = await tf.loadLayersModel('models/model-1.json');
+  const model9 = await tf.loadLayersModel('models/model-2 (4).json');
+  const model10 = await tf.loadLayersModel('models/model-2 (3).json');
+  const model11 = await tf.loadLayersModel('models/model17.json');
+  const model12 = await tf.loadLayersModel('models/model17_2.json');
+  const model13 = await tf.loadLayersModel('models/model17_3.json');
+  const model14 = await tf.loadLayersModel('models/model17_4.json');
+  const model15 = await tf.loadLayersModel('models/model19_1.json');
+  const model16 = await tf.loadLayersModel('models/model20_1.json');
+  const model17 = await tf.loadLayersModel('models/model20_2.json');
 
-    background(0);
+  //cars.push(new Particle(model1, 'red'));
+  cars.push(new Particle(model2, 'blue'));
+  cars.push(new Particle(model3, 'green'));
+  cars.push(new Particle(model5, 'purple'));
+  cars.push(new Particle(model6, 'orange'));
+  cars.push(new Particle(model7, 'pink'));
+  cars.push(new Particle(model8, 'brown'));
+  cars.push(new Particle(model9, 'cyan'));
+  cars.push(new Particle(model10, 'magenta'));
+  cars.push(new Particle(model11, 'lime'));
+  cars.push(new Particle(model12, 'teal'));
+  cars.push(new Particle(model13, 'indigo'));
+  cars.push(new Particle(model14, 'violet'));
+  cars.push(new Particle(model15, 'white'));
+  cars.push(new Particle(model16, 'red'));
+  cars.push(new Particle(model17, 'blue'));
 
-    for (let wall of walls) {
-        wall.show();
+  document.getElementById('playButton').addEventListener('click', () => {
+      gameStarted = true;
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('background').classList.add('transparent');
+  });
+
+  // Ajouter un écouteur d'événements pour la touche 'd'
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'd' || event.key === 'D') {
+      showRays = !showRays;
     }
+  });
+}
 
-    fill(255);
-    ellipse(start.x, start.y, 10);
-    ellipse(end.x, end.y, 10);
+document.getElementById('lapsDropdown').addEventListener('change', function() {
+  lapsToComplete = parseInt(this.value);
+  document.getElementById('playButton').disabled = false; // Activer le bouton "Play"
+  document.getElementById('chooseLapsMessage').style.display = 'none'; // Masquer le message de description
+});
 
-    for (let car of cars) {
-        car.look(walls);
-        car.check(checkpoints);
-        car.bounds();
-        car.update();
-        car.show();
-    }  
-    displayCarInfoAndLeaderboard();  // Ajoutez cet appel pour afficher les infos
+document.getElementById('playButton').addEventListener('click', () => {
+  if (lapsToComplete > 0) {
+    gameStarted = true;
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('background').classList.add('transparent');
+  }
+});
 
+
+function draw() {
+  if (!gameStarted) return;
+
+  background(0);
+
+  for (let wall of walls) {
+      wall.show();
+  }
+
+  // Dessiner la ligne de départ
+  drawStartingLine();
+
+  fill(255);
+  ellipse(end.x, end.y, 10);
+
+  // Afficher uniquement les voitures vivantes
+  for (let car of cars) {
+      if (!car.dead) {
+          car.look(walls);
+          car.check(checkpoints);
+          car.bounds();
+          car.update();
+          car.show();
+          if (Math.abs(car.laps) >= lapsToComplete) { // Vérifier le nombre de tours en valeur absolue
+              gameStarted = false;
+              showWinner(car);
+              return;
+          }
+      }
+  }  
+
+  // Afficher le texte d'instruction
+  fill(255);
+  textAlign(CENTER);
+  textSize(10);
+  text('Appuyez sur "d" pour afficher les rayons', width / 2, 30);
+
+  displayCarInfoAndLeaderboard();  // Ajoutez cet appel pour afficher les infos
 }
 
 function displayCarInfoAndLeaderboard() {
-    let carInfoContainer = document.getElementById('carInfoContainer');
-    if (!carInfoContainer) {
-      carInfoContainer = document.createElement('div');
-      carInfoContainer.id = 'carInfoContainer';
-      document.body.appendChild(carInfoContainer);
-    }
-  
-    let leaderboardContainer = document.getElementById('leaderboardContainer');
-    if (!leaderboardContainer) {
-      leaderboardContainer = document.createElement('div');
-      leaderboardContainer.id = 'leaderboardContainer';
-      document.body.appendChild(leaderboardContainer);
-    }
-  
-    let carInfoHtml = '<h2>🚗 Car Information:</h2>';
-    for (let i = 0; i < cars.length; i++) {
-      let car = cars[i];
-      carInfoHtml += `<p>Car ${i + 1} - Color: ${car.color}, Fitness: ${car.fitness.toFixed(2)}, Status: ${car.dead ? 'Dead' : 'Alive'}</p>`;
-    }
-    carInfoContainer.innerHTML = carInfoHtml;
-  
-    let leaderboardHtml = '<h2>🏆 Leaderboard:</h2>';
-    let sortedCars = cars.slice().sort((a, b) => b.fitness - a.fitness);
-    for (let i = 0; i < sortedCars.length; i++) {
-      let car = sortedCars[i];
-      leaderboardHtml += `<p style="color: ${car.color};">${i + 1}. Car ${cars.indexOf(car) + 1}</p>`;
-    }
-    leaderboardContainer.innerHTML = leaderboardHtml;
+  let carInfoContainer = document.getElementById('carInfoContainer');
+  if (!carInfoContainer) {
+    carInfoContainer = document.createElement('div');
+    carInfoContainer.id = 'carInfoContainer';
+    document.body.appendChild(carInfoContainer);
   }
+
+  let leaderboardContainer = document.getElementById('leaderboardContainer');
+  if (!leaderboardContainer) {
+    leaderboardContainer = document.createElement('div');
+    leaderboardContainer.id = 'leaderboardContainer';
+    document.body.appendChild(leaderboardContainer);
+  }
+
+  let carInfoHtml = '<h2>🚗 Car Information:</h2>';
+  for (let i = 0; i < cars.length; i++) {
+    let car = cars[i];
+    carInfoHtml += `<p>Car ${i + 1} - Fitness: ${car.fitness.toFixed(2)}</p>`;
+  }
+  carInfoContainer.innerHTML = carInfoHtml;
+
+  let leaderboardHtml = '<h2>🏆 Leaderboard:</h2>';
+  let sortedCars = cars.slice().sort((a, b) => {
+    if (a.dead === b.dead) {
+      return b.fitness - a.fitness;
+    }
+    return a.dead ? 1 : -1;
+  });
+  for (let i = 0; i < sortedCars.length; i++) {
+    let car = sortedCars[i];
+    let statusIcon = car.dead ? '❌' : '✅';
+    leaderboardHtml += `<p style="color: ${car.color};">${i + 1}. Car ${cars.indexOf(car) + 1} ${statusIcon} - Tours: ${car.laps}</p>`;
+  }
+  leaderboardContainer.innerHTML = leaderboardHtml;
+}
+
+function showWinner(car) {
+  let winnerContainer = document.createElement('div');
+  winnerContainer.id = 'winnerContainer';
+  winnerContainer.style.position = 'absolute';
+  winnerContainer.style.top = '50%';
+  winnerContainer.style.left = '50%';
+  winnerContainer.style.transform = 'translate(-50%, -50%)';
+  winnerContainer.style.color = car.color;
+  winnerContainer.style.fontSize = '48px';
+  winnerContainer.style.fontWeight = 'bold';
+  winnerContainer.style.zIndex = '1000';
+  winnerContainer.innerHTML = `Car ${cars.indexOf(car) + 1} Wins! 🏆`;
+  document.body.appendChild(winnerContainer);
+
+  // Animation de victoire
+  setTimeout(() => {
+    winnerContainer.style.transition = 'opacity 1s';
+    winnerContainer.style.opacity = '0';
+    setTimeout(() => {
+      document.body.removeChild(winnerContainer);
+    }, 1000);
+  }, 3000);
+}
