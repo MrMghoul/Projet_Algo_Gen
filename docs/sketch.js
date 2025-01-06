@@ -100,12 +100,12 @@ async function setup() {
   cars.push(new Particle(model9, 'cyan'));
   cars.push(new Particle(model10, 'magenta'));
   cars.push(new Particle(model11, 'lime'));
-  cars.push(new Particle(model12, 'teal'));
-  cars.push(new Particle(model13, 'indigo'));
-  cars.push(new Particle(model14, 'violet'));
-  cars.push(new Particle(model15, 'white'));
-  cars.push(new Particle(model16, 'red'));
-  cars.push(new Particle(model17, 'blue'));
+  // cars.push(new Particle(model12, 'teal'));
+  // cars.push(new Particle(model13, 'indigo'));
+  // cars.push(new Particle(model14, 'violet'));
+  // cars.push(new Particle(model15, 'white'));
+  // cars.push(new Particle(model16, 'red'));
+  // cars.push(new Particle(model17, 'blue'));
 
   document.getElementById('playButton').addEventListener('click', () => {
       gameStarted = true;
