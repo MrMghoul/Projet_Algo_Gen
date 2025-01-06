@@ -185,6 +185,6 @@ body, html {
 }
 
 canvas {
-  transform: scale(0.7);
+  transform: scale(0.8);
   transform-origin: top left;
 }
