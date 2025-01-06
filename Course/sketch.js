@@ -84,8 +84,8 @@ async function setup() {
   const model6 = await tf.loadLayersModel('models/model-2.json');
   const model7 = await tf.loadLayersModel('models/model15.json');
   const model8 = await tf.loadLayersModel('models/model-1.json');
-  const model9 = await tf.loadLayersModel('models/model-2 (4).json');
-  const model10 = await tf.loadLayersModel('models/model-2 (3).json');
+  const model9 = await tf.loadLayersModel('models/model-2-4.json');
+  const model10 = await tf.loadLayersModel('models/model-2-3.json');
   const model11 = await tf.loadLayersModel('models/model17.json');
   const model12 = await tf.loadLayersModel('models/model17_2.json');
   const model13 = await tf.loadLayersModel('models/model17_3.json');
